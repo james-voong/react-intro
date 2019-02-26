@@ -33,7 +33,7 @@ A common stack is:
 Today we'll be covering the first three of those, by building a simple app which
 displays a searchable list of MP's in New Zealand, and their email addresses.
 
-## Getting started 
+## Getting started
 
 If you have your own github account already, you might prefer to fork this
 repository and clone that instead. If you don't just run the following commands
@@ -81,8 +81,7 @@ npm install --save-dev react react-dom
 ```
 
 I also set up a [Webpack](https://webpack.github.io/) based development build
-process. If you'd like to learn more about how that works, I run a
-JavaScript Build Pipelines training.
+process. This process is not covered as part of this course.
 
 If you want to refer to a finished, working version of today's project, have a
 look at the `example` folder.
@@ -149,7 +148,7 @@ import data from 'data';
 We can check that's working as we expect by adding a `console.log(data);`
 statement temporarily.
 
-We also want to import the new component that we're adding, for the table. 
+We also want to import the new component that we're adding, for the table.
 
 > It's a good idea to only have one component per file, so we should create a new file.
 
@@ -226,7 +225,7 @@ structure more easily.
 ### PropTypes
 
 React comes with a rudimentary type checking system that is good to use, called
-[PropTypes](https://facebook.github.io/react/docs/typechecking-with-proptypes.html). 
+[PropTypes](https://facebook.github.io/react/docs/typechecking-with-proptypes.html).
 
 PropTypes are added to every component and they validate that __props__ that are
 being passed in conform to a particular _type_ (like, a string, or an array).
@@ -236,7 +235,7 @@ is complaining at us for not having it).
 First, in a terminal in the `tutorial` directory, run:
 
 ```
-npm install --save-dev prop-types
+npm install --save prop-types
 ```
 
 Change:
@@ -246,7 +245,7 @@ import React, { Component } from 'react';
 
 to:
 ```
-import React, { Component, } from 'react'; 
+import React, { Component, } from 'react';
 import PropTypes from 'prop-types';
 ```
 
@@ -267,9 +266,9 @@ Rendering variables into JSX is really easy, let's temporarily try it now:
 
 ```
 render () {
-  
+
   let test = 'MP';
-  
+
   return (
     <table className="table">
       <thead>
@@ -287,7 +286,7 @@ use a loop:
 ```
 render () {
   let rows = [];
-  
+
   this.props.mpData.forEach(mp => {
     rows.push(
       <tr>
@@ -298,7 +297,7 @@ render () {
       </tr>
     );
   });
-  
+
   return (
 ```
 
@@ -338,7 +337,7 @@ We can use normal JS to perform transformations on the data.
 this.props.mpData.forEach((mp, index) => {
   let name = mp.name.split(',');
   name = name.reverse().join(' ');
-  
+
   rows.push(  
     <tr key={index}>
       <td>{name}</td>
@@ -356,7 +355,7 @@ this.props.mpData.forEach((mp, index) => {
 this.props.mpData.forEach(mp => {
   let name = mp.name.split(',');
   name = name.reverse().join(' ');
-  
+
   rows.push(  
     <tr key={mp.email}>
       <td>{name}</td>
@@ -377,11 +376,11 @@ We're going to change the current code:
 class Table extends Component {
   render () {
     let rows = [];
-    
+
     this.props.mpData.forEach((mp, index) => {
       let name = mp.name.split(',');
       name = name.reverse().join(' ');
-      
+
       rows.push(  
         <tr key={index}>
           <td>{name}</td>
@@ -391,7 +390,7 @@ class Table extends Component {
         </tr>
       );
     });
-    
+
     return (
 ```
 
@@ -401,11 +400,11 @@ to:
 class Table extends Component {
   renderRows () {
     let rows = [];
-    
+
     this.props.mpData.forEach((mp, index) => {
       let name = mp.name.split(',');
       name = name.reverse().join(' ');
-      
+
       rows.push(  
         <tr key={index}>
           <td>{name}</td>
@@ -415,13 +414,13 @@ class Table extends Component {
         </tr>
       );
     });
-    
+
     return rows;
   }
-  
+
   render () {
     const rows = this.renderRows();
-    
+
     return (
 ```
 
@@ -437,11 +436,11 @@ class Search extends Component {
     return (
       <div className="mb-3">
         <label>
-          Search: 
+          Search:
           <input
             className="ml-2"
             type="search"
-            autoComplete="off" 
+            autoComplete="off"
           />
         </label>
       </div>
@@ -492,12 +491,12 @@ import React, { Component } from 'react';
 class Search extends Component {
   constructor (props) {
     super(props);
-    
+
     this.state = {
       searchFieldValue: ''
     };
   }
-  
+
   render () {  
     return (
       <div className="mb-3">
@@ -514,7 +513,7 @@ class Search extends Component {
 
 The `constructor (props) { super(props)` bit is boilerplate for adding a
 constructor to a class.
-  
+
 Now we need to set up a trigger so as the user interacts
 with the field their input values are reflected in the state:
 
@@ -522,20 +521,20 @@ with the field their input values are reflected in the state:
 class Search extends Component {
   constructor (props) {
     super(props);
-    
+
     this.state = {
       searchFieldValue: ''
     };
 
     this.searchFieldChange = this.searchFieldChange.bind(this);
   }
-  
+
   searchFieldChange (event) {
     this.setState({
       searchFieldValue: event.target.value
     });
   }
-  
+
   render () {  
     return (
       <div className="mb-3">
@@ -577,14 +576,14 @@ component (plus some more constructor boilerplate):
 class Homepage extends Component {
   constructor (props) {
     super(props);
-    
+
     this.state = {
       searchFieldValue: ''
     };
-    
+
     this.searchValueEntered = this.searchValueEntered.bind(this);
   }
-  
+
   searchValueEntered (value) {
     this.setState({
       searchFieldValue: value
@@ -600,11 +599,11 @@ Now we've passed this down to to Search we can pick it up there and use it (not
 forgetting to set up a PropType for `searchValueEntered`):
 
 ```
-import React, { Component, } from 'react'; 
+import React, { Component, } from 'react';
 import PropTypes from 'prop-types';
 
 ...
-  
+
   searchFieldChange (event) {
     this.setState({
       searchFieldValue: event.target.value
@@ -658,7 +657,7 @@ this.props.mpData.forEach((mp, index) => {
   if (!searchValue || fulltext.indexOf(searchValue) > -1) {
     let name = mp.name.split(',');
     name = name.reverse().join(' ');
-    
+
     rows.push(
       <tr key={index}>
       <td>{name}</td>
@@ -694,7 +693,7 @@ Router](https://reacttraining.com/react-router/web/guides/quick-start).
 First, as we're adding a project dependency we need to install it:
 
 ```
-npm install --save-dev react-router-dom
+npm install --save react-router-dom
 ```
 
 First, let's make a component for our About page at `src/components/about/about.jsx`:
@@ -786,7 +785,7 @@ integrate. For example,
 flaoting back to top button, can be installed by:
 
 ```
-npm install --save-dev react-scroll-up
+npm install --save react-scroll-up
 ```
 
 and then used very easily, for example here in
@@ -818,7 +817,7 @@ Hopefully the library you want to use supports being included as a module and
 can be added as an npm dep - Clipboard.js does and can:
 
 ```
-npm install clipboard --save-dev
+npm install clipboard --save
 ```
 
 To use it, we want to add one per row. This is a good time to break up our Table
@@ -828,15 +827,15 @@ Create a new file, `src/components/row/row.jsx`, into which we'll set up a
 component and copy over some of the logic from Table:
 
 ```
-import React, { Component, } from 'react'; 
+import React, { Component, } from 'react';
 import PropTypes from 'prop-types';
 
 class Row extends Component {
-  
+
   render () {  
     let name = this.props.mp.name.split(',');
     name = name.reverse().join(' ');
-    
+
     return (
       <tr>
         <td>{name}</td>
