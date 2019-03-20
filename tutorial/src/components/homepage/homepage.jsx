@@ -4,6 +4,21 @@ import Table from 'components/table/table';
 import Search from 'components/search/search';
 
 class Homepage extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      searchFieldValue: ''
+    }
+    this.searchValueEntered = this.searchValueEntered.bind(this)
+  }
+
+  searchValueEntered(value){
+    this.setState({
+      searchFieldValue: value
+    });
+  }
+
   render () {
     return (
       <div className="container-fluid">
@@ -14,12 +29,12 @@ class Homepage extends Component {
         </div>
         <div className="row">
           <div className="col">
-            <Search />
+            <Search searchValueEntered={this.searchValueEntered}/>
           </div>
         </div>
         <div className="row">
           <div className="col">
-            <Table mpData={data}/>
+            <Table mpData={data} searchFieldValue={this.state.searchFieldValue}/>
           </div>
         </div>
         <div className="row mt-3">

@@ -11,18 +11,23 @@ class Table extends Component {
     let rows = [];
 
     this.props.mpData.forEach((mp, index) => {
-      let name = mp.name.split(',');
-      name = name.reverse().join(' ');
+      const fulltext = Object.values(mp).join().toLowerCase();
+      const searchValue = this.props.searchFieldValue.toLowerCase();
 
-      rows.push(
-        <tr key={index}>
+      if (!searchValue || fulltext.indexOf(searchValue) > -1){
+        let name = mp.name.split(',');
+        name = name.reverse().join(' ');
+
+        rows.push(
+          <tr key={index}>
           <td>{name}</td>
           <td>{mp.party}</td>
           <td>{mp.electorate}</td>
           <td><a href={'mailto:' + mp.email}>{mp.email}</a></td>
-        </tr>
-      );
-    });
+          </tr>
+      )
+    }
+  });
 
     return rows;
   }
@@ -49,6 +54,7 @@ class Table extends Component {
   }
 }
 Table.propTypes = {
-  mpData: PropTypes.array.isRequired
+  mpData: PropTypes.array.isRequired,
+  searchFieldValue: PropTypes.string
 }
 export default Table;
