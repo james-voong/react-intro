@@ -5,6 +5,7 @@ it read "export class Component"
 if you didn't add that then you need to export the class at the end
 */
 import PropTypes from 'prop-types';
+import Row from 'components/row/row';
 
 class Table extends Component {
   renderRows () {
@@ -15,16 +16,8 @@ class Table extends Component {
       const searchValue = this.props.searchFieldValue.toLowerCase();
 
       if (!searchValue || fulltext.indexOf(searchValue) > -1){
-        let name = mp.name.split(',');
-        name = name.reverse().join(' ');
-
         rows.push(
-          <tr key={index}>
-          <td>{name}</td>
-          <td>{mp.party}</td>
-          <td>{mp.electorate}</td>
-          <td><a href={'mailto:' + mp.email}>{mp.email}</a></td>
-          </tr>
+          <Row key={index} mp={mp} />
       )
     }
   });
