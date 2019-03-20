@@ -12,7 +12,7 @@ class Row extends Component {
   }
 
   componentDidMount() {
-    new Clipboard(this.copy.current, {
+    this.copyAction = new Clipboard(this.copy.current, {
       text: () => {
         return this.email.current.innerText;
       }
